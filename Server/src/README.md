@@ -39,6 +39,8 @@ Express-mongo-sanitize: sanitizes user-supplied data to prevent MongoDb operator
 cookie-parser: to parse cookie header and populate req.cookies with object keyed by cookie name
 
 express-file-upload: for uploading files...
-when you set useTemplate to b true t helps to create a folder with  name temp... u can use d file and delete wen not needed
+when you set useTemplate to b true t helps to create a folder with  name temp... u can use d file and delete wen not needed.
+
+cors middleware: to protect and to restrict access to the server
 
 compression middleware helps to compress data which makes response faster
