@@ -43,4 +43,13 @@ when you set useTemplate to b true t helps to create a folder with  name temp...
 
 cors middleware: to protect and to restrict access to the server
 
-compression middleware helps to compress data which makes response faster
+compression middleware helps to compress data which makes response faster.
+
+PROCESSES in the uncaught exception
+process.exit(1) means there is an error, (0) means no error
+//// in the task manager there lots of processes that can be started or stopped...
+typing the ps command in the terminal displays lots of processes in  the system
+cconsole.log(process.pid or ppid) will print the id of the process in the console.
+
+if you want to kill it, you can go to command promt and type the following command
+ taskkill /pid 1852/f   this will kill the process and crash your server. So it is adviced to close the server before it crashes...
