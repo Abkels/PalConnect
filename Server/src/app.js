@@ -11,9 +11,6 @@ import createHttpError from 'http-errors'
 import routes from "./routes/index.js"
 
 
-//dotEnv config
-dotenv.config();
-
 //create express app
 const app = express();
 
@@ -67,6 +64,6 @@ app.use(async(err,req,res,next) => {
     })
 })
 
-export default app
+export default app 
 
  
