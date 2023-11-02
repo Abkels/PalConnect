@@ -53,3 +53,10 @@ cconsole.log(process.pid or ppid) will print the id of the process in the consol
 
 if you want to kill it, you can go to command promt and type the following command
  taskkill /pid 1852/f   this will kill the process and crash your server. So it is adviced to close the server before it crashes...
+
+ ...create the routes.
+ inside the routes folder create an index.js file to create a global router
+
+ "http-errorr": for handling http status codes properly
+
+ trim-request for emoving white spaces in the req.body
