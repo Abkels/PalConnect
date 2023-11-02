@@ -5,7 +5,7 @@ import mongoose from 'mongoose'
 
 
 //env Variables
-const {DATABASE_URL} = process.env;
+// const {DATABASE_URL} = process.env;  
 const PORT = process.env.PORT || 8000;
 
 
@@ -20,13 +20,13 @@ const PORT = process.env.PORT || 8000;
 //     mongoose.set('debug', true)
 // }
 
-//mongodb connection
+// mongodb connection
 // mongoose.connect(DATABASE_URL,{
 //     useNewUrlParser: true,
 //     useUnifiedTopology: true,
 // }).then(()=>{
 //     logger.info('connected to Mongodb')
-// })
+// });
 
 const server = app.listen(PORT,()=> {
     logger.info(`server is listening on ${PORT}...`);
