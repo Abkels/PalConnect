@@ -5,20 +5,20 @@ import mongoose from 'mongoose'
 
 
 //env Variables
-// const {DATABASE_URL} = process.env;  
+const {DATABASE_URL} = process.env;  
 const PORT = process.env.PORT || 8000;
 
 
 //exit on mongodb error
-// mongoose.connection.on('error',(err)=>{
-//     logger.error(`Mongodb connection error: ${err}`);
-//     process.exit(1);
-// });
+mongoose.connection.on('error',(err)=>{
+    logger.error(`Mongodb connection error: ${err}`);
+    process.exit(1);
+});
 
 //Mongobd debug mode
-// if(process.env.NODE_ENV !=="production") {
-//     mongoose.set('debug', true)
-// }
+if(process.env.NODE_ENV !=="production") {
+    mongoose.set('debug', true)
+}
 
 // mongodb connection
 // mongoose.connect(DATABASE_URL,{
@@ -27,6 +27,10 @@ const PORT = process.env.PORT || 8000;
 // }).then(()=>{
 //     logger.info('connected to Mongodb')
 // });
+
+mongoose.connect("mongodb://0.0.0.0:27017/PalConnect").then(()=>{
+    logger.info('connected to Mongodb')
+});
 
 const server = app.listen(PORT,()=> {
     logger.info(`server is listening on ${PORT}...`);

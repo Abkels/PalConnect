@@ -1,0 +1,35 @@
+import {combineReducers, configureStore, getDefaultMiddleware} from "@reduxjs/toolkit"
+import userSlice from "../features/userSlice"
+import storage  from "redux-persist/lib/storage"
+import {persistReducer, persistStore} from "redux-persist"
+import createFilter from "redux-persist-transform-filter"
+
+//saveUserOnlyFilter
+const saveUserOnlyFilter=createFilter("user",["user"]);  
+
+// Persit config
+const persistConfig = {
+    key: "user",
+    storage,
+    whitelist:["user"], //to go inside of the user to save only the user objects install redux-persist-transform-filter
+    transforms:[saveUserOnlyFilter]
+}
+
+const rootReducer = combineReducers({
+    user: userSlice,
+});
+
+const persistedReducer = persistReducer(persistConfig, rootReducer)
+
+export const store = configureStore({
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) => {
+      return [...getDefaultMiddleware({ serializableCheck: false })]; // Return an array of middleware functions
+    },
+    devTools: true,
+  });
+  
+
+export const persistor = persistStore(store)
+
+

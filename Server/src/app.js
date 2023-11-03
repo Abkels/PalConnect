@@ -31,6 +31,11 @@ app.use(mongoSanitize());
 //Enable cookie parser
 app.use(cookieParser());
 
+//config .env
+dotenv.config({
+    path:"./config/config"
+})
+
 //gzip compression
 app.use(compression());
 
