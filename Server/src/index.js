@@ -34,7 +34,7 @@ mongoose.connect("mongodb://0.0.0.0:27017/PalConnect").then(()=>{
 
 const server = app.listen(PORT,()=> {
     logger.info(`server is listening on ${PORT}...`);
-    console.log("process id:", process.pid);
+    // console.log("process id:", process.pid);
     // console.log("process id:", process.ppid); for parent id
     // in the task manager there lots of processes that can be started or stopped...
 })
