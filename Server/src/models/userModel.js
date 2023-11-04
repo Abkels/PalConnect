@@ -1,5 +1,6 @@
-import mongoose from 'mongoose'
-import validator from 'validator'
+import mongoose from 'mongoose';
+import validator from 'validator';
+import bcrypt from 'bcrypt'
 
 const userSchema = mongoose.Schema({
     name: {
@@ -45,6 +46,6 @@ userSchema.pre('save', async ()=>{
     }
 })
 
-const UserModel = mongoose.model("UserModel", userSchema); 
+const UserModel =mongoose.models.UserModel || mongoose.model("UserModel", userSchema); 
 
 export default UserModel;
