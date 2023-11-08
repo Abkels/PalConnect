@@ -60,3 +60,5 @@ if you want to kill it, you can go to command promt and type the following comma
  "http-errorr": for handling http status codes properly
 
  trim-request for emoving white spaces in the req.body
+
+ regexr.com helps you with REGEX and explains what it does
