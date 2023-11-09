@@ -17,13 +17,13 @@ const initialState = {
 }
 
 //Funtion that goes to the backend
-const registerUser = createAsyncThunk("auth/register", async(values,{rejectWithValue})=>{
+export const registerUser = createAsyncThunk("auth/register", async(values,{rejectWithValue})=>{
   try {
     const {data} = await axios.post(`${AUTH_ENDPOINT}/register`,{...values});
     return data;
   } catch (error) {
     // console.log(error)
-    return rejectWithValue(error.response.data.message);
+    return rejectWithValue(error.response.data.error.message);
   }
 })
 
@@ -51,7 +51,11 @@ const userSlice = createSlice({
     })
     .addCase(registerUser.fulfilled,(state, action)=> {
       state.status = "succeeded";
-      state.user= action
+      state.user= action.payload.user
+    })
+    .addCase(registerUser.rejected,(state, action)=>{
+      state.status = "failed";
+      state.error= action.payload;
     })
   }
 });

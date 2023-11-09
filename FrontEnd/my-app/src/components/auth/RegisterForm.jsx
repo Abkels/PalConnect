@@ -3,12 +3,16 @@ import {useForm} from "react-hook-form"
 import {yupResolver} from "@hookform/resolvers/yup";
 import { signUpSchema } from '../../utils/validation';
 import AuthInput from './AuthInput';
-import {useSelector} from 'react-redux';
-import { Link } from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import PulseLoader  from "react-spinners/PulseLoader"
+import { registerUser } from '../../features/userSlice';
 
 const RegisterForm = () => {
-  const {status} = useSelector((state)=> state.user)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const {status, error} = useSelector((state)=> state.user)
+  // console.log(process.env.REACT_APP_API_ENDPOINT);
    const {
     register,
     handleSubmit,
@@ -18,14 +22,19 @@ const RegisterForm = () => {
     resolver: yupResolver(signUpSchema),
   });
   // const onSubmit = (data) => console.log(data);
-  const onSubmit = (data) => {};
+  const onSubmit = (data) => {
+    console.log(data)
+    dispatch(registerUser({data, picture: ""}));
+    // navigate("/")
+    if(status === "succeeded") navigate("/")
+  };
   // console.log("Values", watch());
   // console.log("errors", errors);
 
   return (
-    <div className= 'w-full flex items-center justify-center overflow-hidden'>
+    <div className='min-h-screen w-full flex items-center justify-center overflow-hidden'>
       {/* container */}
-      <div className="max-w-md space-y-8 p-10 dark:bg-dark_bg_2 rounded-xl">
+      <div className="w-full max-w-md space-y-8 p-10 dark:bg-dark_bg_2 rounded-xl">
         {/* Heading */}
         <div className="text-center dark:text-dark_text_1">
           <h2 className="mt-6 text-3xl font-bold">Welcome</h2>
@@ -56,18 +65,27 @@ const RegisterForm = () => {
           <AuthInput 
           name ="status"
           type="text"
-          placeholder="Status"
+          placeholder="Status (Optional)"
           register={register}
           error={errors?.status?.message}
           />
 
           <AuthInput 
           name ="password"
-          type="text"
+          type="password"
           placeholder="Password"
           register={register}
           error={errors?.password?.message}
           />
+
+          {/* if there is an error */}
+          {
+            error ? (
+              <div>
+                <p className='text-red-400'>{error}</p>
+              </div>
+            ) : null
+          }
 
           {/* Submit button */}
           <button 
@@ -78,10 +96,11 @@ const RegisterForm = () => {
             </button>
             {/* Sign in Link */}
             <p className='flex flex-col items-center justify-center mt-10 text-center text-md dark:text-dark_text_1'>
-              <span style={{fontSize: "12px"}}>have and account?</span>
+              <span>have and account?</span>
               <Link to="/login" 
-              className = "dark:text-dark_hover_1 hover: underline cursor-pointer transition ease-in duration-300"
-              >Sign in</Link>
+              className = "hover:underline cursor-pointer transition ease-in duration-300"
+              >Sign in
+              </Link>
             </p>
         </form>
       </div> 

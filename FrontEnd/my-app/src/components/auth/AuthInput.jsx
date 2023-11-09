@@ -7,7 +7,7 @@ const AuthInput = ({name,type,placeholder,register,error}) => {
         <input 
         className='w-full dark:bg-dark_bg_3 text-base py-1 px-3 rounded-lg outline-none'
         type={type} placeholder={placeholder} {...register(name)}/>
-        {error && <p className='text-red-600 ' style={{fontSize: '12px'}}>{error}</p>}
+        {error && <p className='text-red-400'>{error}</p>}
     </div>
   )
 }
