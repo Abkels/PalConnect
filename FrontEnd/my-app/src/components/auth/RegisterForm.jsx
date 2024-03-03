@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {useForm} from "react-hook-form"
 import {yupResolver} from "@hookform/resolvers/yup";
 import { signUpSchema } from '../../utils/validation';
@@ -7,11 +7,15 @@ import {useDispatch, useSelector} from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import PulseLoader  from "react-spinners/PulseLoader"
 import { registerUser } from '../../features/userSlice';
+import Picture from '../Picture';
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {status, error} = useSelector((state)=> state.user)
+  const {status, error} = useSelector((state)=> state.user);
+  const [picture, setPicture] = useState();
+  const [readablePicture, setReadablePicture] = useState("");
+
   console.log(process.env.REACT_APP_API_ENDPOINT);
    const {
     register,
@@ -22,15 +26,19 @@ const RegisterForm = () => {
     resolver: yupResolver(signUpSchema),
   });
   // const onSubmit = (data) => console.log(data);
-  const onSubmit = (data) => {
-    console.log("hello: ",data)
-    dispatch(registerUser({data, picture: ""}));
-    // navigate("/")
-    if(status === "succeeded") navigate("/")
+  const onSubmit = async (data) => {
+    // console.log(data)
+    let res = await dispatch(registerUser({...data, picture: ""}));
+    // console.log(res);
+    // navigate("/");
+    if(res.payload.user) {
+      navigate("/");
+    }
+    // if(status === "succeeded") navigate("/")
   };
   // console.log("Values", watch());
   // console.log("errors", errors);
-
+  // console.log(picture, readablePicture);
   return (
     <div className='min-h-screen w-full flex items-center justify-center overflow-hidden'>
       {/* container */}
@@ -77,7 +85,12 @@ const RegisterForm = () => {
           register={register}
           error={errors?.password?.message}
           />
-
+          {/* Picture */}
+          <Picture 
+          readablePicture= {readablePicture} 
+          setReadablePicture={setReadablePicture}
+          setPicture={setPicture}
+          />
           {/* if there is an error */}
           {
             error ? (

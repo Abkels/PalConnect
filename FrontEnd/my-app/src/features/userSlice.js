@@ -51,13 +51,14 @@ const userSlice = createSlice({
     })
     .addCase(registerUser.fulfilled,(state, action)=> {
       state.status = "succeeded";
-      state.user= action.payload.user
+      state.error = "";
+      state.user= action.payload.user;
     })
     .addCase(registerUser.rejected,(state, action)=>{
       state.status = "failed";
       state.error= action.payload;
-    })
-  }
+    });
+  },
 });
 
 export const {logout} = userSlice.actions
