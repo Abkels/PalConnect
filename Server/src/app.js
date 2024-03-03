@@ -13,6 +13,7 @@ import routes from "./routes/index.js"
 
 //create express app
 const app = express();
+app.use(express.json())
 
 // morgan
 if(process.env.NODE_ENV !== "production") {
@@ -32,9 +33,7 @@ app.use(mongoSanitize());
 app.use(cookieParser());
 
 //config .env
-dotenv.config({
-    path:"./config/config"
-})
+dotenv.config();
 
 //gzip compression
 app.use(compression());
@@ -47,15 +46,16 @@ app.use(fileUpload({
 //cors
 app.use(cors());
 
-app.use("api/v1", routes)
+//API v1 routes
+app.use("/api/v1", routes);
 
 app.post('/test', (req, res) => {
     // res.send("hello from here")
     throw createHttpError.BadRequest('this route has an error')
-})
+});
 
 app.use(async(req,res,next) => {
-    next(createHttpError.NotFound("this route does not exist"))
+    next(createHttpError.NotFound("this route does not exist"));
 })
 
 // Error handling

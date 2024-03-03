@@ -12,7 +12,7 @@ const RegisterForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {status, error} = useSelector((state)=> state.user)
-  // console.log(process.env.REACT_APP_API_ENDPOINT);
+  console.log(process.env.REACT_APP_API_ENDPOINT);
    const {
     register,
     handleSubmit,
@@ -23,7 +23,7 @@ const RegisterForm = () => {
   });
   // const onSubmit = (data) => console.log(data);
   const onSubmit = (data) => {
-    console.log(data)
+    console.log("hello: ",data)
     dispatch(registerUser({data, picture: ""}));
     // navigate("/")
     if(status === "succeeded") navigate("/")

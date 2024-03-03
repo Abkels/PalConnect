@@ -5,7 +5,7 @@ import mongoose from 'mongoose'
 
 
 //env Variables
-const {DATABASE_URL} = process.env;  
+// const {DATABASE_URL} = process.env;  
 const PORT = process.env.PORT || 8000;
 
 
@@ -17,20 +17,23 @@ mongoose.connection.on('error',(err)=>{
 
 //Mongobd debug mode
 // if(process.env.NODE_ENV !=="production") {
-//     mongoose.set('debug', true)
+//     mongoose.set("debug", true);
 // }
 
 // mongodb connection
-// mongoose.connect(DATABASE_URL,{
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-// }).then(()=>{
+// mongoose.connect(process.env.DATABASE_URL)
+// .then(()=>{
 //     logger.info('connected to Mongodb')
 // });
 
-mongoose.connect("mongodb://0.0.0.0:27017/PalConnect").then(()=>{
-    logger.info('connected to Mongodb')
-});
+mongoose.connect("mongodb://127.0.0.1:27017/PalConnect", { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    logger.info('Connected to MongoDB');
+    
+  })
+  .catch((error) => {
+    logger.error('MongoDB connection error:', error);
+  });
 
 const server = app.listen(PORT,()=> {
     logger.info(`server is listening on ${PORT}...`);

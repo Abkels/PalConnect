@@ -15,7 +15,7 @@ export const register = async (req, res, next) => {
              password
         });
         
-        const access_token = await generateToken({userId: newUser._id}, "id", process.env.ACCESS_TOKEN_SECRET);
+        const access_token = await generateToken({userId: newUser._id}, "1d", process.env.ACCESS_TOKEN_SECRET);
 
         const refresh_token = await generateToken({userId: newUser._id}, "30d", process.env.ACCESS_TOKEN_SECRET);
 
@@ -28,7 +28,7 @@ export const register = async (req, res, next) => {
         // console.table({access_token, refresh_token});   // displays the access and refresh token in a table once there is a user
 
         res.json({
-            message: "Registrattion successful",
+            message: "Registration successful",
             user: {
                 _id: newUser._id,
                 name: newUser.name,
@@ -39,6 +39,7 @@ export const register = async (req, res, next) => {
             },
         });
     } catch (error) {
+        console.log("err", error);
            next(error);
     }
 };
@@ -86,31 +87,61 @@ export const logout = async (req, res, next) => {
     }
 };
 
+// export const refreshToken = async (req, res, next) => {
+//     try {
+//         const refresh_token = req.cookies.refreshtoken;
+//         if(!refresh_token) throw createHttpError.Unauthorized('Please login');
+
+//         const check = await verifyToken(
+//             refresh_token,
+//             process.env.REFRESH_TOKEN_SECRET
+//         );
+
+//         const user = await findUser(check.userId);
+//         const access_token = await generateToken({userId: user._id}, "id", process.env.ACCESS_TOKEN_SECRET);
+
+//         res.json({
+//             user: {
+//                 _id: user._id,
+//                 name: user.name,
+//                 email: user.email,
+//                 picture: user.picture,
+//                 status: user.status,
+//                 access_token,
+//             },
+//         });
+
+//     } catch (error) {
+//            next(error);
+//     }
+// };
+
 export const refreshToken = async (req, res, next) => {
     try {
-        const refresh_token = req.cookies.refreshtoken;
-        if(!refresh_token) throw createHttpError.Unauthorized('Please login');
-
-        const check = await verifyToken(
-            refresh_token,
-            process.env.REFRESH_TOKEN_SECRET
-        );
-
-        const user = await findUser(check.userId);
-        const access_token = await generateToken({userId: user._id}, "id", process.env.ACCESS_TOKEN_SECRET);
-
-        res.json({
-            user: {
-                _id: user._id,
-                name: user.name,
-                email: user.email,
-                picture: user.picture,
-                status: user.status,
-                access_token,
-            },
-        });
-
+      const refresh_token = req.cookies.refreshtoken;
+      if (!refresh_token) throw createHttpError.Unauthorized("Please login.");
+      const check = await verifyToken(
+        refresh_token,
+        process.env.REFRESH_TOKEN_SECRET
+      );
+      const user = await findUser(check.userId);
+      const access_token = await generateToken(
+        { userId: user._id },
+        "1d",
+        process.env.ACCESS_TOKEN_SECRET
+      );
+      res.json({
+        user: {
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          picture: user.picture,
+          status: user.status,
+          token: access_token,
+        },
+      });
     } catch (error) {
-           next(error);
+      next(error);
     }
-};
+  };
+  

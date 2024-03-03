@@ -16,11 +16,11 @@ const initialState = {
     }
 }
 
-//Funtion that goes to the backend
+//Function that goes to the backend
 export const registerUser = createAsyncThunk("auth/register", async(values,{rejectWithValue})=>{
   try {
     const {data} = await axios.post(`${AUTH_ENDPOINT}/register`,{...values});
-    return data;
+    return data; 
   } catch (error) {
     // console.log(error)
     return rejectWithValue(error.response.data.error.message);
