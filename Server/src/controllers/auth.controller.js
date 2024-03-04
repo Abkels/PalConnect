@@ -48,7 +48,7 @@ export const login = async (req, res, next) => {
     try {
         const {email, password} = req.body;
         const user = await signUser(email,password);
-        const access_token = await generateToken({userId: user._id}, "id", process.env.ACCESS_TOKEN_SECRET);
+        const access_token = await generateToken({userId: user._id}, "1d", process.env.ACCESS_TOKEN_SECRET);
 
         const refresh_token = await generateToken({userId: user._id}, "30d", process.env.ACCESS_TOKEN_SECRET);
 
