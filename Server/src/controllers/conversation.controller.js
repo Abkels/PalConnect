@@ -2,6 +2,7 @@ import createHttpError from "http-errors";
 import logger from "../config/logger.config.js";
 import { findUser } from "../services/user.service.js";
 import { createConversation, getUserConversations, populateConversation } from "../services/conversation.services.js";
+import ConversationModel from "../models/conversationModel.js";
 
 
 export const create_open_conversation = async(req, res, next) => {
@@ -45,4 +46,15 @@ export const getConversations = async(req,res,next) => {
     } catch (error) {
         next(error);
     }
+    return conversations
+};
+
+export const updateLatestMessage = async(convo_id, msg)=> {
+    const updatedConvo = await ConversationModel.findByIdAndUpdate(convo_id,{
+        latestMessage: msg,
+    });
+    if(!updatedConvo)
+    throw createHttpError.BadRequest("Oops...Something went wrong !!!");
+
+    return updatedConvo;
 }
