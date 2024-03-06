@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
-const CONVERSATION_ENDPOINT = `${process.env.REACT_APP_API_ENDPOINT}/convrsation`
+const CONVERSATION_ENDPOINT = `${process.env.REACT_APP_API_ENDPOINT}/conversation`
 
 const initialState = {
 status: "",
