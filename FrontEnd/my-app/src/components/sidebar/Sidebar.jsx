@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { SidebarHeader } from './header'
 import { Notifications } from './notifications'
-import { Search } from './search'
+import { Search, SearchResults } from './search'
 import { Conversations } from './conversations'
+
 
 const Sidebar = () => {
     const [searchResults, setSearchResults] = useState([]);
-    console.log(searchResults);
+    // console.log(searchResults);
   return (
     <div className='w-[40%] h-full select-none'>
         {/* Sidebar header */}
@@ -15,8 +16,19 @@ const Sidebar = () => {
         <Notifications />
         {/* Search */}
         <Search searchLength = {searchResults.length} setSearchResults={setSearchResults}/>
-        {/* conversations */}
-        <Conversations />
+        {
+          searchResults.length > 0 ? (
+            <>
+            {/* Search results */}
+              <SearchResults searchResults={searchResults} />
+            </>
+          ) : (
+            <>
+              {/* conversations */}
+              <Conversations />
+            </>
+          )
+        }
     </div>
   )
 }

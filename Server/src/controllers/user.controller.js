@@ -9,7 +9,7 @@ export const searchUsers = async(req, res, next) => {
             logger.error("Please add a search query first");
             throw createHttpError.BadRequest("Please add a search term first");
         }
-        const users = await searchUserService(keyword);
+        const users = await searchUserService(keyword, req.user.userId);
         res.status(200).json(users);
     } catch (error) {
         next(error)
