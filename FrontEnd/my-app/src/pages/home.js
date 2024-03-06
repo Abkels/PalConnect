@@ -9,11 +9,11 @@ const Home = () => {
 
   //get conversations
   useEffect(() => {
-    if (user?.token) {
+    if (user) {
       dispatch(getConversations(user.token));
     }
   }, [user]);
-  
+
   return (
     <div className='min-h-screen dark:bg-dark_bg_1 flex items-center justify-center py-[19px] overflow-hidden'>
       {/* container */}
