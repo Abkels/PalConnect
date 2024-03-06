@@ -5,7 +5,8 @@ import { Search } from './search'
 import { Conversations } from './conversations'
 
 const Sidebar = () => {
-    const [searchResults, setSearchResult] = useState([]);
+    const [searchResults, setSearchResults] = useState([]);
+    console.log(searchResults);
   return (
     <div className='w-[40%] h-full select-none'>
         {/* Sidebar header */}
@@ -13,7 +14,7 @@ const Sidebar = () => {
         {/*Notifications */}
         <Notifications />
         {/* Search */}
-        <Search searchLength = {searchResults.length}/>
+        <Search searchLength = {searchResults.length} setSearchResults={setSearchResults}/>
         {/* conversations */}
         <Conversations />
     </div>
