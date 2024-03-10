@@ -4,6 +4,7 @@ import Home from './pages/home'
 import Login from './pages/login'
 import Register from './pages/register'
 import { useSelector } from 'react-redux'
+
 // import {CallIcon} from './svg'
 
 
@@ -21,7 +22,7 @@ const App = () => {
         <Routes>
           <Route exact path='/' element = {<Home />} />
           <Route exact path='/login' element = {<Login />} />
-          <Route exact path='/register' element = {<Register />} />      
+          <Route exact path='/register' element = {<Register />} /> 
         </Routes>
       </Router>
     </div>

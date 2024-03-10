@@ -1,5 +1,5 @@
 import React from 'react'
-import { Logo } from '../../svg'
+import { Logo } from '../../../svg'
 
 const WhatsappHome = () => {
   return (

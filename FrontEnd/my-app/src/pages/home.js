@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Sidebar } from '../components/sidebar'
 import { useDispatch, useSelector } from 'react-redux'
 import { getConversations } from '../features/chatSlice';
-import { WhatsappHome } from '../components/chats';
+import { ChatContainer, WhatsappHome } from '../components/chats';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const Home = () => {
         {/* Sidebar */}
         <Sidebar />
         {
-          activeConversation._id ? "home" : <WhatsappHome />
+          activeConversation._id ? <ChatContainer /> : <WhatsappHome />
         }
       </div>
     </div>
