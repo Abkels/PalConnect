@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import Conversation from './Conversation';
 
 const Conversations = () => {
-    const {conversations} = useSelector((state) => state.chat);
+    const {conversations, activeConversation} = useSelector((state) => state.chat);
   return (
     <div className='convos scrollbar'>
         <ul>
@@ -11,7 +11,9 @@ const Conversations = () => {
             // conversations && conversations.map((convo,i)=>
             // <Conversation convo={convo} key={i} />
             // ) //or
-            conversations && conversations.map((convo)=>
+            conversations && conversations
+            .filter((c) =>c.latestMessage || c._id === activeConversation._id)
+            .map((convo)=>
             <Conversation convo={convo} key={convo._id} />
             )
         }

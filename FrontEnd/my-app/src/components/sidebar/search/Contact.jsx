@@ -1,9 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getConversationId } from "../../../utils/chats";
 import { open_create_Conversation } from "../../../features/chatSlice";
 
 
-const Contact = ({contact}) => {
+const Contact = ({contact, setSearchResults}) => {
   const dispatch = useDispatch();
   const {user} = useSelector((state) => state.user);
   const {token} = user;
@@ -11,8 +10,9 @@ const Contact = ({contact}) => {
     receiver_id: contact.Id,
     token,
   };
-  const openConversation = () => {
-    dispatch(open_create_Conversation(values))
+  const openConversation = async () => {
+   await dispatch(open_create_Conversation(values));
+   setSearchResults([]);
   }
   return (
     <li
